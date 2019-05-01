@@ -25,6 +25,7 @@ class Settings:
             v = self._settings.get(k)
             setattr(self, k, v)
             if v is None:
+                print(k, v)
                 raise ValueError("%s cannot be empty or None!" % k)
 
 

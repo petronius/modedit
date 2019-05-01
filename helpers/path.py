@@ -10,18 +10,23 @@ class MEPath:
         self.settings = Settings()
 
         self._original = path
+        self._in_tree = True
 
         if not self.in_edit_tree(path) and not self.in_project_dir(path):
-            raise ValueError("Path does not exist in project dir or edit tree!")
+            print("Path does not exist in project dir or edit tree!")
+            self._in_tree = False
 
         self.edit_tree_path = self._path_in_edit_tree(path)
         self.project_path = self._path_in_project(path)
 
-        if os.path.isdir(self.edit_tree_path) != os.path.isdir(self.project_path):
+        if self._in_tree and os.path.isdir(self.edit_tree_path) != os.path.isdir(self.project_path):
             raise Exception("Path exists in both dirs, but is different kinds!")
 
 
     def copy_to_project(self):
+        if not self._in_tree:
+            return
+
         if not os.path.exists(self.project_path):
             os.makedirs(os.path.dirname(self.project_path), exist_ok=True)
             print("Copying %s to %s for editing" % (self.edit_tree_path, self.project_path))
@@ -32,18 +37,26 @@ class MEPath:
 
     @property
     def exists_in_edit_tree(self):
+        if not self._in_tree:
+            return False
         return os.path.exists(self.edit_tree_path)
 
     @property
     def exists_in_project(self):
+        if not self._in_tree:
+            return False
         return os.path.exists(self.project_path)
 
     @property
     def from_edit_tree(self):
+        if not self._in_tree:
+            return False
         return self.in_edit_tree(self._original)
 
     @property
     def from_project_dir(self):
+        if not self._in_tree:
+            return False
         return self.in_project_dir(self._original)
 
     @staticmethod
@@ -57,6 +70,10 @@ class MEPath:
         return path.startswith(settings.project_dir)
  
     def _path_in_project(self, path_in_edit_tree, make=False):
+
+        if not self._in_tree:
+            return None
+
         edit_tree = self.settings.edit_tree
         project_dir = self.settings.project_dir
         if self.in_project_dir(path_in_edit_tree):
@@ -68,6 +85,10 @@ class MEPath:
             raise ValueError("Not a path in the edit tree or the project dir!")
 
     def _path_in_edit_tree(self, path_in_project):
+
+        if not self._in_tree:
+            return None
+
         edit_tree = self.settings.edit_tree
         project_dir = self.settings.project_dir
         if self.in_project_dir(path_in_project):

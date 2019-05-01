@@ -128,7 +128,7 @@ class ModEditConfigureCommand(sublime_plugin.WindowCommand):
         edit_tree = settings.edit_tree
         project_dir = settings.project_dir
 
-        self.view.window().set_project_data({
+        self.window.set_project_data({
             "folders": [
                 {
                     "path": edit_tree,
@@ -156,6 +156,7 @@ class ModEditEditImageCommand(sublime_plugin.TextCommand):
         file = MEPath(self.view.file_name())
         file.copy_to_project()
         cmd = shlex.split(settings.image_open_cmd % file.project_path)
+        print(cmd)
         subprocess.call(cmd)
         
 
