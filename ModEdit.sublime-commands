@@ -1,0 +1,9 @@
+[
+    { "caption": "ModEdit: Overwrite", "command": "mod_edit_edit" },
+    { "caption": "ModEdit: Show original", "command": "mod_edit_show_original" },
+    { "caption": "ModEdit: Write similar", "command": "mod_edit_write_similar" },
+
+    { "caption": "ModEdit: Edit image", "command": "mod_edit_edit_image" },
+
+    { "caption": "ModEdit: Start", "command": "mod_edit_configure" }
+]

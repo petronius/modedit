@@ -1,0 +1,13 @@
+{
+    "edit_tree": "/Users/schuller_michael/Library/Application Support/Steam/steamapps/common/Europa Universalis IV",
+    "project_dir": "/Users/schuller_michael/workspace/personal-projects/sola-fide/SolaFide",
+    "syntax_sigil": [
+        ".txt"
+    ],
+    "noedit_sigil": [
+        ".dds",
+        ".ogg"
+    ],
+    "syntax_file": "Packages/Paradox/Paradox.tmLanguage",
+    "image_open_cmd": "open %s -a GIMP.app"
+}
